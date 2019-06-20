@@ -7,8 +7,24 @@
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
-
   <body>
+
+  <header>
+    <div class="header-logo">
+      <%= link_to('TweetApp', '/') %>
+<!--      <a href="/">TweetApp</a>-->
+    </div>
+    <ul class="header-menus">
+      <li>
+        <%= link_to('TweetAppとは', '/about') %>
+<!--        <a href="/about">TweetAppとは</a>-->
+      </li>
+      <li>
+        <%= link_to('投稿一覧', '/posts/index') %>
+      </li>
+    </ul>
+  </header>
+<!--  この上は、共通のレイアウトを記述。それ以外の各ビューファイルはyieldのなかに入る-->
     <%= yield %>
   </body>
 </html>
