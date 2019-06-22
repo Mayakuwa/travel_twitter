@@ -1,0 +1,21 @@
+<div class="main posts-new">
+  <div class="container">
+    <h1 class="form-heading">編集する</h1>
+    <%= form_tag("/posts/#{@post.id}/update") do %>
+      <div class="form">
+        <div class="form-body">
+          <!-- railsではsaveメゾット実行時にバリデーションに失敗すると、自動的にエラーメッセージが生成されるようになっている
+          errors.full.messagesの中に、エラー内容が配列で入る
+          -->
+          <!-- エラーメッセージ表示-->
+          <% @post.errors.full_messages.each do |message| %>
+            <%= message %>
+          <% end %>
+          <!-- 初期値で、@post.contentを入れることにより、前の投稿内容が入っているようにする-->
+          <textarea name="content"><%= @post.content %>></textarea>
+          <input type="submit" value="保存">
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

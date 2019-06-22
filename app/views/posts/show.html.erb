@@ -10,6 +10,12 @@
         <!-- @postのcreated_atカラムのデータを表示してください -->
         <%= @post.created_at %>
       </div>
+      <div class="post-menus">
+        <!-- getに飛ばすルーティングは、link_toでmethodを書く必要はない　-->
+        <%= link_to("編集", "/posts/#{@post.id}/edit") %>
+        <!-- postに飛ばすルーティングは、link_toで {method: "post"}を記述しなくてはならない　-->
+        <%= link_to("削除", "/posts/#{@post.id}/destroy", {method: "post"}) %>
+      </div>
     </div>
   </div>
 </div>
