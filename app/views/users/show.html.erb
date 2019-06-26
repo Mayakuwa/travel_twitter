@@ -3,6 +3,8 @@
     <div class="user">
       <h2><%= @user.name %></h2>
       <p><%= @user.email %></p>
+      <!-- 画像の指定はスラッシュで始まることに注意！！-->
+      <img src="<%= "/user_images/#{@user.image_name}"%>">
       <%= link_to("編集する","/users/#{@user.id}/edit") %>
     </div>
   </div>
