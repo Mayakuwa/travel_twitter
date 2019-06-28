@@ -33,6 +33,17 @@ class UsersController < ApplicationController
     @user = User.find_by(id: params[:id])
     @user.name = params[:name]
     @user.email = params[:email]
+
+    #画像を保存する処理
+    # 1. paramsで画像を受け取っているか確認。　2. データベースの中に、image_nameを保存（ユーザーの名前で保存）　
+    # 3　paramsで画像を再び受け取る　4. 画像データをもとに画像を作成。image.readで画像を読む
+    if params[:image]
+      @user.image_name = "#{@user.id}.jpg"
+      image = params[:image]
+      File.binwrite("public/user_images/#{@user.image_name}", image.read)
+    end
+    
+
     if @user.save
       flash[:notice] = "ユーザー情報を編集しました"
       redirect_to("/users/#{@user.id}")
