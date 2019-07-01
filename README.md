@@ -31,3 +31,10 @@ Things you may want to cover:
 例) rails g migration add_image_name_to_user
 
 2. できたマイグレーションファイルに変更を加える、その後rails db:migrateコマンドで変更内容を反映！！！
+
+*データベースから抜け出す方法（ハマった時）
+qlite> quit
+   ...> ;
+Error: near "quit": syntax error
+sqlite> 
+　（;を入力してエンター押す）

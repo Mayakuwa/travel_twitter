@@ -5,7 +5,10 @@
       <p><%= @user.email %></p>
       <!-- 画像の指定はスラッシュで始まることに注意！！-->
       <img src="<%= "/user_images/#{@user.image_name}"%>">
-      <%= link_to("編集する","/users/#{@user.id}/edit") %>
+      <!--アクセスしようとしている、ユーザーのIdとログインしているユーザーのIdが同じ場合だけ、編集URLをつける-->
+      <% if @user.id == @current_user.id %>
+        <%= link_to("編集する","/users/#{@user.id}/edit") %>
+      <% end %>
     </div>
   </div>
 </div>

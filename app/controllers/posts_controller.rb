@@ -1,4 +1,6 @@
 class PostsController < ApplicationController
+  before_action :authenticate_user
+
   # 変数は、 Rails ではビューではなく、アクションで定義することが一般的
   def index
     # descは降順という意味（新しいものから順に並び替える）

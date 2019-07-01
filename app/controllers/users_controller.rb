@@ -1,4 +1,8 @@
 class UsersController < ApplicationController
+  before_action :authenticate_user, {only: [:index, :show, :edit, :update]}
+  before_action :forbit_login_user, {only: [:new, :create, :login_form, :login]}
+  before_action :not_correct_user, {only: [:edit, :update]}
+
   def index
     @users = User.all
   end
@@ -15,9 +19,11 @@ class UsersController < ApplicationController
     @user = User.new(
         name: params[:name],
         email: params[:email],
+        password: params[:password],
         image_name: "default_user.jpg"
     )
     if @user.save
+      session[:user_id] = @user.id
       flash[:notice] = "ユーザー登録が完了しました！！"
       redirect_to("/users/#{@user.id}")
     else
@@ -42,7 +48,6 @@ class UsersController < ApplicationController
       image = params[:image]
       File.binwrite("public/user_images/#{@user.image_name}", image.read)
     end
-    
 
     if @user.save
       flash[:notice] = "ユーザー情報を編集しました"
@@ -51,5 +56,33 @@ class UsersController < ApplicationController
       render("users/edit")
     end
   end
+
+  def login_form
+  end
+
+  def login
+    @user = User.find_by(
+            email: params[:email],
+            password: params[:password]
+            )
+
+    if @user
+      session[:user_id] = @user.id
+      flash[:notice] = "ログインしました！！お帰りなさい"
+      redirect_to("/posts/index")
+    else
+      @error_messages = "ユーザー名、またはパスワードが違います"
+      @email = params[:email]
+      @password = params[:password]
+      render("users/login_form")
+    end
+  end
+
+  def logout
+    session[:user_id] = nil
+    flash[:notice] = "ログアウトしました！"
+    redirect_to("/login")
+  end
+
 end
 
