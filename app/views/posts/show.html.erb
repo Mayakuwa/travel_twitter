@@ -1,6 +1,14 @@
 <div class="main posts-show">
   <div class="container">
     <div class="posts-show-item">
+
+      <div class="post-user-name">
+        <!-- ユーザーのプロフィール画像を表示する-->
+        <img src="<%= "/user_images/#{@user.image_name}" %>">
+        <!-- ユーザーの名前と詳細ページへのリンクを表示-->
+        <%= link_to(@user.name, "/users/#{@user.id}") %>
+      </div>
+
       <p>
         <%= @post.content %>
       </p>
@@ -8,10 +16,12 @@
         <%= @post.created_at %>
       </div>
       <div class="post-menus">
+        <% if @post.user_id == @current_user.id %>
         <!-- getに飛ばすルーティングは、link_toでmethodを書く必要はない　-->
-        <%= link_to("編集", "/posts/#{@post.id}/edit") %>
-        <!-- postに飛ばすルーティングは、link_toで {method: "post"}を記述しなくてはならない　-->
-        <%= link_to("削除", "/posts/#{@post.id}/destroy", {method: "post"}) %>
+          <%= link_to("編集", "/posts/#{@post.id}/edit") %>
+          <!-- postに飛ばすルーティングは、link_toで {method: "post"}を記述しなくてはならない　-->
+          <%= link_to("削除", "/posts/#{@post.id}/destroy", {method: "post"}) %>
+        <% end %>
       </div>
     </div>
   </div>

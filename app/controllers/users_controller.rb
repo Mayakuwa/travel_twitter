@@ -3,6 +3,7 @@ class UsersController < ApplicationController
   before_action :forbit_login_user, {only: [:new, :create, :login_form, :login]}
   before_action :not_correct_user, {only: [:edit, :update]}
 
+
   def index
     @users = User.all
   end

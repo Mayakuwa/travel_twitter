@@ -1,5 +1,6 @@
 class PostsController < ApplicationController
   before_action :authenticate_user
+  before_action :ensure_correct_user, {only: [:edit, :update]}
 
   # 変数は、 Rails ではビューではなく、アクションで定義することが一般的
   def index
@@ -9,6 +10,9 @@ class PostsController < ApplicationController
 
   def show
     @post = Post.find_by(id: params[:id])
+    # ユーザーと投稿を結びつける
+    # 以下のコードは @user = User.find_by(id: @post.user_id) と同じ
+    @user = @post.user
   end
 
   def new
@@ -17,7 +21,9 @@ class PostsController < ApplicationController
 
   def create
     # ビューの代わりにリダイレクトさせる
-    @post = Post.new(content: params[:content])
+    @post = Post.new(
+        content: params[:content],
+        user_id: @current_user.id)
     if @post.save
       flash[:notice] = "投稿を作成しました"
       redirect_to("/posts/index")

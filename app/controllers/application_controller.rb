@@ -35,4 +35,13 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  # ログインしているユーザーが、投稿を変更する権限を持っているかどうか
+  def ensure_correct_user
+    #まず@postを定義する！！！
+    @post = Post.find_by(id: params[:id])
+    if @post.user_id != @current_user.id
+      flash[:notice] = "権限がありません"
+      redirect_to("/posts/index")
+    end
+  end
 end
