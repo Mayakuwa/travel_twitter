@@ -9,8 +9,8 @@ class ApplicationController < ActionController::Base
     @current_user = User.find_by(id: session[:user_id])
   end
 
-  # @で定義した変数は、違うクラス内でも利用可
-  # ユーザーがログインしてないときのアクセス制限
+  # @で定義した変数（この場合@current_user）は、違うクラス内でも利用可
+  # ユーザーがログインしてないときのアクセス制限 == ログインしているユーザーのみアクセス可能
   def authenticate_user
     if @current_user == nil
       flash[:notice] = "ログインが必要です"

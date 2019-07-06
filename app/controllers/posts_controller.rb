@@ -13,6 +13,9 @@ class PostsController < ApplicationController
     # ユーザーと投稿を結びつける
     # 以下のコードは @user = User.find_by(id: @post.user_id) と同じ
     @user = @post.user
+   #　以下のコードはいいね！数を表示している。countメゾットで数を表示できる
+    @likes_count = Like.where(post_id: @post.id).count
+
   end
 
   def new
@@ -60,5 +63,8 @@ class PostsController < ApplicationController
     flash[:notice] = "投稿を削除しました"
     redirect_to("/posts/index")
   end
+
+
+
 end
 

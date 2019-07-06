@@ -33,8 +33,12 @@ Things you may want to cover:
 2. できたマイグレーションファイルに変更を加える、その後rails db:migrateコマンドで変更内容を反映！！！
 
 *データベースから抜け出す方法（ハマった時）
-qlite> quit
+sqlite> quit
    ...> ;
 Error: near "quit": syntax error
 sqlite> 
 　（;を入力してエンター押す）
+
+* データベースのカラムなど、全体の状態を確認コマンド
+rails db:migrate:status
+

@@ -85,5 +85,11 @@ class UsersController < ApplicationController
     redirect_to("/login")
   end
 
+  def likes
+    @user = User.find_by(id: params[:id])
+    # ユーザーがいいねした投稿を全て表示
+    @likes = Like.where(user_id: @user.id)
+  end
+
 end
 

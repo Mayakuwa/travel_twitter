@@ -15,14 +15,28 @@
       <div class="post-time">
         <%= @post.created_at %>
       </div>
-      <div class="post-menus">
-        <% if @post.user_id == @current_user.id %>
+
+      <% if Like.find_by(user_id: @current_user.id, post_id: @post.id)%>
+        <%= link_to("/likes/#{@post.id}/destroy", {method: "post"}) do %>
+          <span class="fa fa-heart like-btn-unlike"></span>
+        <% end %>
+      <% else %>
+        <%= link_to("/likes/#{@post.id}/create", {method: "post"}) do %>
+          <span class="fa fa-heart like-btn-like"></span>
+        <% end %>
+      <% end %>
+      <!--いいね数表示！！！-->
+      <%= @likes_count %>
+
+      <% if @post.user_id == @current_user.id %>
+        <div class="post-menus">
         <!-- getに飛ばすルーティングは、link_toでmethodを書く必要はない　-->
           <%= link_to("編集", "/posts/#{@post.id}/edit") %>
           <!-- postに飛ばすルーティングは、link_toで {method: "post"}を記述しなくてはならない　-->
           <%= link_to("削除", "/posts/#{@post.id}/destroy", {method: "post"}) %>
-        <% end %>
-      </div>
+        </div>
+      <% end %>
+
     </div>
   </div>
 </div>
