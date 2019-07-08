@@ -63,11 +63,10 @@ class UsersController < ApplicationController
 
   def login
     @user = User.find_by(
-            email: params[:email],
-            password: params[:password]
-            )
-
-    if @user
+            email: params[:email])
+    # bcryptによって、受け取ったパスワードと、password_digustに登録されている暗号化されたパスワードが正しいか判断する
+    # ＝　authenticateメゾットが使えるようになる
+    if @user && @user.authenticate(params[:password])
       session[:user_id] = @user.id
       flash[:notice] = "ログインしました！！お帰りなさい"
       redirect_to("/posts/index")
